@@ -102,8 +102,8 @@ function world:_recycleNextId()
     return recycleId
 end
 
-function world:query()
-    
+function world:query(...)
+    local 
 end
 
 function world:spawn()
