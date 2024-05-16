@@ -1,5 +1,5 @@
 --// Collection Service Entity System
-local CollectionService = game:GetService("CollectionService")
+local CS = game:GetService("CollectionService")
 local loop = {}
 local world = {
     id_number = 0,
@@ -9,6 +9,30 @@ local world = {
 --// Open/Closed Principle
 -- All functions must do only one thing. 
 -- If another piece of functionality exist, extend to another function.
+
+local function containsResults(t, ...)
+    for i=1, select("#", ...) do
+        local selected = select(i, ...)
+        if not table.find(t, selected) then
+            return false
+        end
+    end
+    return true
+end
+
+local function findOverlappingResults(...) -- Unoptimized probably?
+    local objects = select("#", ...)
+    local results = {}
+    for i=1, objects do
+        local choice_table = select(i, ...)
+        for _, object in next, choice_table do
+            if containsResults(CS:GetTags(object), ...) then
+                table.insert(results, object)
+            end
+        end
+    end
+    return results
+end
 
 function world.instanceExist(instance)
     return trackedInstanceEntity_table[instance] ~= nil
@@ -47,10 +71,9 @@ function world.spawn(instance, kwargs)
 end
 
 function world.query(...)
-    local amt = select()
-    for _, tag in next, tags do
-        local instances = CollectionService:GetTagged(tag)
-
+    for i=0, select("#", ...) do
+        local instances = CS:GetTagged(select(i, ...))
+        findOverlappingResults(instances, ...)
     end
 end
 
