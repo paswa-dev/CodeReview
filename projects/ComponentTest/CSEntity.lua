@@ -3,7 +3,7 @@ local CollectionService = game:GetService("CollectionService")
 local loop = {}
 local world = {
     id_number = 0,
-    entity_table = {} -- ID -> DATA {}
+    entity_table = {} -- ID -> INSTANCE
     trackedInstanceEntity_table = {} -- INSTANCE -> ID
 }
 --// Open/Closed Principle
@@ -46,8 +46,12 @@ function world.spawn(instance, kwargs)
     world.spawnAt(id, instance, kwargs)
 end
 
-function world.query()
+function world.query(...)
+    local amt = select()
+    for _, tag in next, tags do
+        local instances = CollectionService:GetTagged(tag)
 
+    end
 end
 
 return {
