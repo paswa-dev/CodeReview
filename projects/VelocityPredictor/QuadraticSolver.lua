@@ -5,8 +5,8 @@ return function solveQuadric(a, b, c)
     if discrim > 0 then
         return (neg_b + discrim) / doubleA, (neg_b - discrim) / doubleA
     elseif discrim < 0 then
-        return false;
+        return nil, nil;
     elseif discrim == 0 then
-        return neg_b / doubleA
+        return neg_b / doubleA, nil
     end
 end
