@@ -1,4 +1,4 @@
-local solverQuad = require "quadraticSolver"
+local solverQuad = require "QuadraticSolver"
 
 return function(p1: Vector3, p2: Vector3, s1: Vector3, v2: Vector3)
     local dC = (p2-p1).Magnitude
